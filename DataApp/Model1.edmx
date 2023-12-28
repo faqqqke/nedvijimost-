@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище nedvigimostModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="rielty">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cords" Type="varchar" MaxLength="30" />
+          <Property Name="city" Type="varchar" MaxLength="30" />
+          <Property Name="street" Type="varchar" MaxLength="30" />
+          <Property Name="home" Type="varchar" MaxLength="30" />
+          <Property Name="flat" Type="varchar" MaxLength="30" />
+          <Property Name="square_" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="user_admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admin_login" Type="varchar" MaxLength="30" />
+          <Property Name="admin_password" Type="varchar" MaxLength="30" />
+          <Property Name="user_role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_login" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="client_password" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="client_surname" Type="varchar" MaxLength="30" />
+          <Property Name="client_name" Type="varchar" MaxLength="30" />
+          <Property Name="client_patronomic" Type="varchar" MaxLength="30" />
+          <Property Name="client_number" Type="bigint" />
+          <Property Name="client_email" Type="varchar" MaxLength="30" />
+          <Property Name="client_status" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="user_role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_rieltor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rieltor_login" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="rieltor_password" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="rieltor_surname" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="rieltor_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="rieltor_patronomic" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="rieltor_comission" Type="int" />
+          <Property Name="user_role" Type="int" Nullable="false" />
+          <Property Name="user_status" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_role">
+          <Key>
+            <PropertyRef Name="role_number" />
+          </Key>
+          <Property Name="role_number" Type="int" Nullable="false" />
+          <Property Name="role_name" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_status">
+          <Key>
+            <PropertyRef Name="type_of_status" />
+          </Key>
+          <Property Name="type_of_status" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_user_admin_user_role">
+          <End Role="user_role" Type="Self.user_role" Multiplicity="1" />
+          <End Role="user_admin" Type="Self.user_admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_role">
+              <PropertyRef Name="role_number" />
+            </Principal>
+            <Dependent Role="user_admin">
+              <PropertyRef Name="user_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_client_user_status">
+          <End Role="user_status" Type="Self.user_status" Multiplicity="1" />
+          <End Role="user_client" Type="Self.user_client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_status">
+              <PropertyRef Name="type_of_status" />
+            </Principal>
+            <Dependent Role="user_client">
+              <PropertyRef Name="client_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_rieltor_user_role">
+          <End Role="user_role" Type="Self.user_role" Multiplicity="1" />
+          <End Role="user_rieltor" Type="Self.user_rieltor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_role">
+              <PropertyRef Name="role_number" />
+            </Principal>
+            <Dependent Role="user_rieltor">
+              <PropertyRef Name="user_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_rieltor_user_status">
+          <End Role="user_status" Type="Self.user_status" Multiplicity="1" />
+          <End Role="user_rieltor" Type="Self.user_rieltor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_status">
+              <PropertyRef Name="type_of_status" />
+            </Principal>
+            <Dependent Role="user_rieltor">
+              <PropertyRef Name="user_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище nedvigimostModelContainer">
+          <EntitySet Name="rielty" EntityType="Self.rielty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_admin" EntityType="Self.user_admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_client" EntityType="Self.user_client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_rieltor" EntityType="Self.user_rieltor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_role" EntityType="Self.user_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_status" EntityType="Self.user_status" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_user_admin_user_role" Association="Self.FK_user_admin_user_role">
+            <End Role="user_role" EntitySet="user_role" />
+            <End Role="user_admin" EntitySet="user_admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_client_user_status" Association="Self.FK_user_client_user_status">
+            <End Role="user_status" EntitySet="user_status" />
+            <End Role="user_client" EntitySet="user_client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_rieltor_user_role" Association="Self.FK_user_rieltor_user_role">
+            <End Role="user_role" EntitySet="user_role" />
+            <End Role="user_rieltor" EntitySet="user_rieltor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_rieltor_user_status" Association="Self.FK_user_rieltor_user_status">
+            <End Role="user_status" EntitySet="user_status" />
+            <End Role="user_rieltor" EntitySet="user_rieltor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="nedvigimostModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="rielty">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cords" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="street" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="home" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="flat" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="square_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user_admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin_login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="admin_password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="user_role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user_role1" Relationship="Self.FK_user_admin_user_role" FromRole="user_admin" ToRole="user_role" />
+        </EntityType>
+        <EntityType Name="user_client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="client_password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="client_surname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="client_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="client_patronomic" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="client_number" Type="Int64" />
+          <Property Name="client_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="client_status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user_status" Relationship="Self.FK_user_client_user_status" FromRole="user_client" ToRole="user_status" />
+        </EntityType>
+        <EntityType Name="user_rieltor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rieltor_login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rieltor_password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rieltor_surname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rieltor_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rieltor_patronomic" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rieltor_comission" Type="Int32" />
+          <Property Name="user_role" Type="Int32" Nullable="false" />
+          <Property Name="user_status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="user_role1" Relationship="Self.FK_user_rieltor_user_role" FromRole="user_rieltor" ToRole="user_role" />
+          <NavigationProperty Name="user_status1" Relationship="Self.FK_user_rieltor_user_status" FromRole="user_rieltor" ToRole="user_status" />
+        </EntityType>
+        <EntityType Name="user_role">
+          <Key>
+            <PropertyRef Name="role_number" />
+          </Key>
+          <Property Name="role_number" Type="Int32" Nullable="false" />
+          <Property Name="role_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="user_admin" Relationship="Self.FK_user_admin_user_role" FromRole="user_role" ToRole="user_admin" />
+          <NavigationProperty Name="user_rieltor" Relationship="Self.FK_user_rieltor_user_role" FromRole="user_role" ToRole="user_rieltor" />
+        </EntityType>
+        <EntityType Name="user_status">
+          <Key>
+            <PropertyRef Name="type_of_status" />
+          </Key>
+          <Property Name="type_of_status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="user_client" Relationship="Self.FK_user_client_user_status" FromRole="user_status" ToRole="user_client" />
+          <NavigationProperty Name="user_rieltor" Relationship="Self.FK_user_rieltor_user_status" FromRole="user_status" ToRole="user_rieltor" />
+        </EntityType>
+        <Association Name="FK_user_admin_user_role">
+          <End Role="user_role" Type="Self.user_role" Multiplicity="1" />
+          <End Role="user_admin" Type="Self.user_admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_role">
+              <PropertyRef Name="role_number" />
+            </Principal>
+            <Dependent Role="user_admin">
+              <PropertyRef Name="user_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_client_user_status">
+          <End Role="user_status" Type="Self.user_status" Multiplicity="1" />
+          <End Role="user_client" Type="Self.user_client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_status">
+              <PropertyRef Name="type_of_status" />
+            </Principal>
+            <Dependent Role="user_client">
+              <PropertyRef Name="client_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_rieltor_user_role">
+          <End Role="user_role" Type="Self.user_role" Multiplicity="1" />
+          <End Role="user_rieltor" Type="Self.user_rieltor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_role">
+              <PropertyRef Name="role_number" />
+            </Principal>
+            <Dependent Role="user_rieltor">
+              <PropertyRef Name="user_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_rieltor_user_status">
+          <End Role="user_status" Type="Self.user_status" Multiplicity="1" />
+          <End Role="user_rieltor" Type="Self.user_rieltor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_status">
+              <PropertyRef Name="type_of_status" />
+            </Principal>
+            <Dependent Role="user_rieltor">
+              <PropertyRef Name="user_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="nedvigimostEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="rielty" EntityType="Self.rielty" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="user_admin" EntityType="Self.user_admin" />
+          <EntitySet Name="user_client" EntityType="Self.user_client" />
+          <EntitySet Name="user_rieltor" EntityType="Self.user_rieltor" />
+          <EntitySet Name="user_role" EntityType="Self.user_role" />
+          <EntitySet Name="user_status" EntityType="Self.user_status" />
+          <AssociationSet Name="FK_user_admin_user_role" Association="Self.FK_user_admin_user_role">
+            <End Role="user_role" EntitySet="user_role" />
+            <End Role="user_admin" EntitySet="user_admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_client_user_status" Association="Self.FK_user_client_user_status">
+            <End Role="user_status" EntitySet="user_status" />
+            <End Role="user_client" EntitySet="user_client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_rieltor_user_role" Association="Self.FK_user_rieltor_user_role">
+            <End Role="user_role" EntitySet="user_role" />
+            <End Role="user_rieltor" EntitySet="user_rieltor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_rieltor_user_status" Association="Self.FK_user_rieltor_user_status">
+            <End Role="user_status" EntitySet="user_status" />
+            <End Role="user_rieltor" EntitySet="user_rieltor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище nedvigimostModelContainer" CdmEntityContainer="nedvigimostEntities">
+          <EntitySetMapping Name="rielty">
+            <EntityTypeMapping TypeName="nedvigimostModel.rielty">
+              <MappingFragment StoreEntitySet="rielty">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cords" ColumnName="cords" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="home" ColumnName="home" />
+                <ScalarProperty Name="flat" ColumnName="flat" />
+                <ScalarProperty Name="square_" ColumnName="square_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="nedvigimostModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_admin">
+            <EntityTypeMapping TypeName="nedvigimostModel.user_admin">
+              <MappingFragment StoreEntitySet="user_admin">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="admin_login" ColumnName="admin_login" />
+                <ScalarProperty Name="admin_password" ColumnName="admin_password" />
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_client">
+            <EntityTypeMapping TypeName="nedvigimostModel.user_client">
+              <MappingFragment StoreEntitySet="user_client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="client_login" ColumnName="client_login" />
+                <ScalarProperty Name="client_password" ColumnName="client_password" />
+                <ScalarProperty Name="client_surname" ColumnName="client_surname" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="client_patronomic" ColumnName="client_patronomic" />
+                <ScalarProperty Name="client_number" ColumnName="client_number" />
+                <ScalarProperty Name="client_email" ColumnName="client_email" />
+                <ScalarProperty Name="client_status" ColumnName="client_status" />
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_rieltor">
+            <EntityTypeMapping TypeName="nedvigimostModel.user_rieltor">
+              <MappingFragment StoreEntitySet="user_rieltor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rieltor_login" ColumnName="rieltor_login" />
+                <ScalarProperty Name="rieltor_password" ColumnName="rieltor_password" />
+                <ScalarProperty Name="rieltor_surname" ColumnName="rieltor_surname" />
+                <ScalarProperty Name="rieltor_name" ColumnName="rieltor_name" />
+                <ScalarProperty Name="rieltor_patronomic" ColumnName="rieltor_patronomic" />
+                <ScalarProperty Name="rieltor_comission" ColumnName="rieltor_comission" />
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+                <ScalarProperty Name="user_status" ColumnName="user_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_role">
+            <EntityTypeMapping TypeName="nedvigimostModel.user_role">
+              <MappingFragment StoreEntitySet="user_role">
+                <ScalarProperty Name="role_number" ColumnName="role_number" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_status">
+            <EntityTypeMapping TypeName="nedvigimostModel.user_status">
+              <MappingFragment StoreEntitySet="user_status">
+                <ScalarProperty Name="type_of_status" ColumnName="type_of_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

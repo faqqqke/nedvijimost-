@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="528c5c97c6ce42ff983a81282963ac67" Name="Diagram1">
+        <EntityTypeShape EntityType="nedvigimostModel.rielty" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="nedvigimostModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="nedvigimostModel.user_admin" Width="1.5" PointX="6" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="nedvigimostModel.user_client" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="nedvigimostModel.user_rieltor" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="nedvigimostModel.user_role" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="nedvigimostModel.user_status" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="nedvigimostModel.FK_user_admin_user_role" ManuallyRouted="false" />
+        <AssociationConnector Association="nedvigimostModel.FK_user_client_user_status" ManuallyRouted="false" />
+        <AssociationConnector Association="nedvigimostModel.FK_user_rieltor_user_role" ManuallyRouted="false" />
+        <AssociationConnector Association="nedvigimostModel.FK_user_rieltor_user_status" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

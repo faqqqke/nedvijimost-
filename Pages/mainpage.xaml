@@ -1,0 +1,46 @@
+﻿<Page x:Class="nedvijimost_.Pages.mainpage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:nedvijimost_.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="500"
+      Title="mainpage">
+
+    <Grid>
+        <TextBlock VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Text="Главное меню"
+                   FontSize="20"
+                   Margin="0 10 0 0"/>
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical">
+            <Button Content="Добавить недвижимость"
+                    Style="{StaticResource btnmainpage}"
+                    Name="btnaddnedvijimost"
+                    Click="btnaddnedvijimost_Click"
+                    Margin="0 0 0 10"/>
+            <Button Content="Посмотреть риелторов"
+                    Style="{StaticResource btnmainpage}"
+                    Name="btnrieltors"
+                    Click="btnrieltors_Click"
+                    Margin="0 0 0 10"/>
+            <Button Content="Посмотреть клиентов"
+                    Style="{StaticResource btnmainpage}"
+                    Name="btnclients"
+                    Click="btnclients_Click"
+                    Margin="0 0 0 10"/>
+            <Button Content="Добавить клиента"
+                    Style="{StaticResource btnmainpage}"
+                    Name="btnaddclient"
+                    Click="btnaddclient_Click"
+                    Margin="0 0 0 10"/>
+            <Button Content="Добавить риелтора"
+                    Style="{StaticResource btnmainpage}"
+                    Name="btnaddrieltor"
+                    Click="btnaddrieltor_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
